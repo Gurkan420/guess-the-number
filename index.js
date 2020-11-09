@@ -3,25 +3,32 @@ function randomInt (n) {
 
 }
 
-
-const secretNumber = randomInt()
+let guesses = []
+let secretNumber = randomInt()
 console.log(secretNumber)
 console.log(secretNumber)
 
 function getUserGuess () {
-    const stringValue = document.getElementById("userInput").value
+    const stringValue = document.getElementById("user-input").value
     return parseInt(stringValue, 10)
 }
 
-document.addEventListener("keyUp", function (event) {
-    if (event.key === "enter") {
-        const guess = getGuess()
+let message = document.getElementById("message")
+
+document.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        const guess = getUserGuess()
+        setMessage (guess)
+        console.log(guess)
+
     }
 
 
 })
 
 function setMessage (userGuess) {
+    guesses.push(userGuess)
+    document.getElementById("guesses").innerHTML = guesses
     if (userGuess > secretNumber) {
         message.innerHTML = "Too High!";
    
@@ -33,9 +40,15 @@ function setMessage (userGuess) {
     }
     else { message.innerHTML = "correctGuess!"
 
+ 
 
     }
-clearInput();
+    clearValue()
 
 
 }
+function clearValue () {
+    return document.getElementById('user-input').value = ''
+}
+
+ 
